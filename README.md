@@ -1,16 +1,15 @@
 # Speech2TextAOAI
 
-Azure OpenAI GPT-4o-transcribeを使用した音声文字起こし＆コールセンター分析アプリケーション
+Azure OpenAI を使用した音声文字起こし＆コールセンター分析アプリケーション
 
 ## 概要
 
-このアプリケーションは、Azure OpenAI GPT-4o-transcribeを使用して音声ファイルを文字起こしし、その内容をAIで分析してコールセンターでの顧客対応を評価するツールです。
+このアプリケーションは、Azure OpenAI を使用して音声ファイルを文字起こしし、その内容をAIで分析してコールセンターでの顧客対応を評価するツールです。
 
 ## 主な機能
 
 - **Azure OpenAI GPT-4o-transcribeによる高精度文字起こし**
   - 様々な音声フォーマット対応（WAV、MP3、M4A、FLAC、OGG、WebM）
-  - タイムスタンプ付き文字起こし
   - 多言語対応（主に日本語）
   - **25MB以上の大きなファイルの自動分割処理**
 
@@ -26,7 +25,7 @@ Azure OpenAI GPT-4o-transcribeを使用した音声文字起こし＆コール�
 - **FFmpeg**（25MB以上の音声ファイル分割用）
 - Azure OpenAI Service
   - GPT-4o-transcribe デプロイメント（文字起こし用）
-  - GPT-4 または GPT-3.5-turbo デプロイメント（分析用）
+  - GPT-4.1 デプロイメント（分析用）
 
 ## セットアップ
 
@@ -35,7 +34,7 @@ Azure OpenAI GPT-4o-transcribeを使用した音声文字起こし＆コール�
 1. Azure Portal で Azure OpenAI Service を作成
 2. 以下のモデルをデプロイ：
    - `gpt-4o-transcribe` - 音声文字起こし用
-   - `gpt-4` または `gpt-3.5-turbo` - 分析用
+   - `gpt-4.1` - 分析用
 
 ### 2. 設定ファイルの準備
 
@@ -48,7 +47,7 @@ Azure OpenAI GPT-4o-transcribeを使用した音声文字起こし＆コール�
       "Endpoint": "https://your-openai-resource.openai.azure.com",
       "ApiKey": "your-api-key-here",
       "TranscriptionDeploymentName": "gpt-4o-transcribe",
-      "AnalysisDeploymentName": "gpt-4"
+      "AnalysisDeploymentName": "gpt-4.1"
     }
   }
 }
@@ -125,24 +124,24 @@ Speech2TextAOAI.exe "C:\recordings\large_meeting.wav"
 
 #### 通常ファイルの場合：
 ```
-[00:05] こんにちは、サポートセンターの田中と申します。
-[00:12] お客様のお困りごとについてお聞かせください。
-[00:18] 先週購入した商品が届かないんです。
+こんにちは、サポートセンターの田中と申します。
+お客様のお困りごとについてお聞かせください。
+先週購入した商品が届かないんです。
 ```
 
 #### 分割処理されたファイルの場合：
 ```
 === 分割 1/3 ===
-[00:05] こんにちは、サポートセンターの田中と申します。
-[00:12] お客様のお困りごとについてお聞かせください。
+こんにちは、サポートセンターの田中と申します。
+お客様のお困りごとについてお聞かせください。
 
 === 分割 2/3 ===
-[10:15] それでは注文番号を教えていただけますでしょうか。
-[10:22] 注文番号は ABC123 です。
+それでは注文番号を教えていただけますでしょうか。
+注文番号は ABC123 です。
 
 === 分割 3/3 ===
-[20:30] 確認いたしました。明日中にお届けいたします。
-[20:35] ありがとうございました。
+確認いたしました。明日中にお届けいたします。
+ありがとうございました。
 ```
 
 ### AI分析結果の例
